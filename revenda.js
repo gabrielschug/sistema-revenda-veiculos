@@ -49,58 +49,59 @@ function inclusao() {
     gravaAtivos();
   }
 }
-/*
+
 function listagem() {
     // TÍTULO da Secção
-  console.log('\n'+"-".repeat(83) + "\n📋 Listagem dos Produtos Cadastrados\n" + "-".repeat(83) + "\n")
+  console.log('\n'+"-".repeat(106) + "\n📋 Listagem dos Ativos Cadastrados\n" + "-".repeat(106) + "\n")
 
   console.log(
-    `\nProduto............: Categoria: Igredientes............................: Preço....:\n`
+    `\nModelo..........: Marca......: Ano..: KM....: Espeficicações.......................: FIPE.....: REVENDA..:\n`
   );
 
-  for (let i in nomes) {
+  for (let i in modelos) {
     console.log(
-      `${nomes[i].padEnd(20)} ${categorias[i].padEnd(10)} ${igredientes[i].padEnd(40)}  R$ ${precos[i].toFixed(2)}`);
+      `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(6)} ${String(quilometragens[i]).padStart(7)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
   }
   console.log()
 }
 
 function pesquisaCategoria() {
-  if (fs.existsSync("produtos.txt")) {
-    // SE produtos.txt existir ENTÃO...
+  if (fs.existsSync("ativos.txt")) {
+    // SE ativos.txt existir ENTÃO...
     // Lê as linhas do .txt e fatia e separando as linhas (\n)
-    const produtos = fs.readFileSync("produtos.txt", "utf-8").split("\n");
+    const ativos = fs.readFileSync("ativos.txt", "utf-8").split("\n");
 
     // Título da Secção
-    console.log('\n'+"-".repeat(83) + "\n🔍 Pesquisa por Categoria\n" + "-".repeat(83) + "\n");
+    console.log('\n'+"-".repeat(106) + "\n🔍 Pesquisa por Marca\n" + "-".repeat(106) + "\n");
 
     // Entrada da Categoria:
-    const cat = prompt("🔹 Categoria............: ").toUpperCase();
+    const pesquisa = prompt("🔹 Marca............: ").toUpperCase();
 
     // Contador de Itens
     let contador = 0;
-    for (i in categorias) {
-        if (cat == categorias[i]) { // SE existir itens nesta categoria ENTÃO...
+    for (i in modelos) {
+        if (pesquisa == marcas[i]) { // SE existir itens nesta categoria ENTÃO...
             contador++; // Conte...
         }
     }
 
     // Tabela dos Itens
     if (contador == 0) {// SE a Contagem deu 0 ENTÃO INFORME ...
-        console.log("\n\n🔶 Não há itens nesta Categoria.");
+        console.log("\n\n🔶 Não há ativos desta Marca.");
     } else {
-        console.log(`\n`+"-".repeat(83) +
-        `\nProduto............: Categoria: Igredientes............................: Preço....:\n`);
-        
-        for (i in categorias) {
-            if (cat == categorias[i]) {
-            console.log(`${nomes[i].padEnd(20)} ${categorias[i].padEnd(10)} ${igredientes[i].padEnd(40)} R$ ${precos[i].toFixed(2).padStart(6)}`);
+        console.log(`\n`+"-".repeat(106) +
+        `\nModelo..........: Marca......: Ano..: KM....: Espeficicações.......................: FIPE.....: REVENDA..:\n`);
+
+        for (i in modelos) {
+            if (pesquisa == marcas[i]) {
+            console.log(
+      `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(6)} ${String(quilometragens[i]).padStart(7)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
         }
         }console.log("\n");
     }
 }
 }
-
+/*
 function pesquisaPreco() {
   if (fs.existsSync("produtos.txt")) {
     // SE produtos.txt existir ENTÃO...
@@ -522,9 +523,9 @@ obtemProdutos();
 menuPrincipal: 
 do {
   console.log(
-    "\n"+"-".repeat(83) +
+    "\n"+"-".repeat(106) +
       "\n🚗 SCHUG REVENDA DE VEÍCULOS - CONTROLE DE ESTOQUE\n" +
-      "-".repeat(83)
+      "-".repeat(106)
   );
   console.log("\n1. 📝 Inclusão de Ativo\n\n");
   console.log("2. 📋 Estoque de Ativos");

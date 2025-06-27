@@ -2,3 +2,5 @@ ka;FORD;2014;54856;manual + ar condicionado;47500;10;---
 gol;VW;1543;1453;dsadas;1452;15;--
 corsel;SEI LA;15426;15425;dasdas;1542;10;--
 cobalt;CHEVRO;2015;54263;--;10000;15000;--
+Cruze HB Sport;CHEVROLET;2014;85426;Completo + Ar Cond. + Banco de Couro;58073;49999.9;https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM4HDorYsKfwQwxJNq1U3ZfeBgUxYm73mz_g&s
+GOL;VW;2154;148956;Completo;584421.25;498759.99;--
