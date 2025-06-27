@@ -22,8 +22,11 @@ function inclusao() {
   const c = prompt("Ano..........: ");
   const d = Number(prompt("Quilometragem.............: "));
   const e = prompt("Especificações.........: ");
-  const f = prompt("Valor da Tabela FIPE.........: ");
-  const g = prompt("% de Revenda.........: ");
+  const f = Number(prompt("Valor da Tabela FIPE.........: "));
+  let perc = Number(prompt(`% de Revenda .....: `));
+  let recomendacao = (f * (perc/100))+f
+  let info = console.log(`Valor Recomendado de Revenda: R$ ${recomendacao.toFixed(2)}`)
+  const g = Number(prompt('Valor de Revenda.........: '));
   const h = prompt("URL  da foto.........: ");
 
   // Se entrou algum valor zero: CANCELA
@@ -488,30 +491,31 @@ function gravaAtivos() {
   console.log(`\n🔹 Volte Sempre!\n`);
 }
 
-/*
 function obtemProdutos() {
-  if (fs.existsSync("produtos.txt")) {
-    // SE produtos.txt existir ENTÃO...
+  if (fs.existsSync("ativos.txt")) {
+    // SE ativos.txt existir ENTÃO...
 
     // Lê as linhas do .txt e fatia e separando as linhas (\n)
-    const produtos = fs.readFileSync("produtos.txt", "utf-8").split("\n");
+    const ativos = fs.readFileSync("ativos.txt", "utf-8").split("\n");
 
     // Separa e manda pros vetores
-    for (i in produtos) {
-      const partes = produtos[i].split(";");
+    for (i in ativos) {
+      const partes = ativos[i].split(";");
 
-      nomes.push(partes[0]);
-      categorias.push(partes[1]);
-      igredientes.push(partes[2]);
-      precos.push(Number(partes[3]));
-      fotos.push(partes[4]);
+      modelos.push(partes[0]);
+      marcas.push(partes[1]);
+      anos.push(Number(partes[2]));
+      quilometragens.push(Number(partes[3]));
+      especificacoes.push(partes[4]);
+      fipes.push(Number(partes[5]));
+      precos.push(Number(partes[6]));
+      fotos.push(partes[7]);
     }
   }
 }
 
 // Carregar lista de produtos antes do Menu (se existir arquivo)
 obtemProdutos();
-*/
 
 //---------------------------------- PROGRAMA PRINCIPAL ---------------------------------------
 

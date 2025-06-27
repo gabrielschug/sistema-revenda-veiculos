@@ -1,1 +1,4 @@
 ka;FORD;2014;54856;manual + ar condicionado;47500;10;---
+gol;VW;1543;1453;dsadas;1452;15;--
+corsel;SEI LA;15426;15425;dasdas;1542;10;--
+cobalt;CHEVRO;2015;54263;--;10000;15000;--
