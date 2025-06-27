@@ -1,44 +1,52 @@
 const prompt = require("prompt-sync")();
 const fs = require("fs"); // fs: file system (para manipular aqruivos)
 
-const nomes = [];
-const categorias = [];
-const igredientes = [];
+const modelos = [];
+const marcas = [];
+const anos = [];
+const quilometragens = [];
+const especificacoes = [];
+const fipes = [];
 const precos = [];
 const fotos = [];
 
 function inclusao() {
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(83) + "\n📝 Inclusão de Produtos\n" + "-".repeat(83) + "\n")
+  console.log('\n'+"-".repeat(83) + "\n📝 Inclusão de Ativo\n" + "-".repeat(83) + "\n")
 
   // ENTRADAS de Dados
-
-  console.log(`\n🔹 Informe Nome, Categoria, Igreditentes, Preço e Imagem do produto\n\n⚠️ OBS.: Cancele a inclusão digitando '0' em qualquer entrada.\n`)
-  const a = prompt("Nome do Produto......: ");
-  const b = prompt("Categoria............: ").toUpperCase();
-  const c = prompt("Igredientes..........: ");
-  const d = Number(prompt("Preço R$.............: "));
-  const e = prompt("URL  da foto.........: ");
+  console.log(`\n🔹 Informe Modelo, Marca, Ano, Quilometragem, Espeficicações, Valor da Tabela FIPE, % de Revenda e Foto do Veículo.\n\n⚠️ OBS.: Cancele a inclusão computando '0' em qualquer entrada.\n`)
+  const a = prompt("Modelo......: ");
+  const b = prompt("Marca............: ").toUpperCase();
+  const c = prompt("Ano..........: ");
+  const d = Number(prompt("Quilometragem.............: "));
+  const e = prompt("Especificações.........: ");
+  const f = prompt("Valor da Tabela FIPE.........: ");
+  const g = prompt("% de Revenda.........: ");
+  const h = prompt("URL  da foto.........: ");
 
   // Se entrou algum valor zero: CANCELA
-  if ([a,b,c,d].includes('0')){
+  if ([a,b,c,d,e,f,g,h].includes('0')){
     console.log('\n🔶 A  inclusão do produto foi cancelada...\n')
 
   } else{
     // INCLUINDO aos vetores
-    nomes.push(a);
-    categorias.push(b);
-    igredientes.push(c);
-    precos.push(d);
-    fotos.push(e);
+    modelos.push(a);
+    marcas.push(b);
+    anos.push(c);
+    quilometragens.push(d);
+    especificacoes.push(e);
+    fipes.push(f);
+    precos.push(g);
+    fotos.push(h);
   
     // INFO de Conclusão + SALVAR
-    console.log(`\n✅ Produto Cadastrado com Sucesso!\n` + `-`.repeat(83));
-    gravaProdutos();
+    console.log(`\n✅ Veículo Cadastrado com Sucesso!\n` + `-`.repeat(83));
+    gravaAtivos();
   }
 }
-
+/*
 function listagem() {
     // TÍTULO da Secção
   console.log('\n'+"-".repeat(83) + "\n📋 Listagem dos Produtos Cadastrados\n" + "-".repeat(83) + "\n")
@@ -323,7 +331,7 @@ function alterarProduto() {
   
     console.log(`\n✅ Produto ${nomeAntigo} foi ALTERADO para ${(novoNome)}.`)
     
-    gravaProdutos();
+    gravaAtivos();
   }
 }
 
@@ -356,7 +364,7 @@ function alterarCategoria() {
   
     console.log(`\n✅ A Categoria ${infoAntigo} do Produto ${nomes[prod]} foi ALTERADA para ${(novoNome)}.`)
     
-    gravaProdutos();
+    gravaAtivos();
   }
 }
 
@@ -389,7 +397,7 @@ function alterarIgredientes() {
   
     console.log(`\n✅ Os igredientes "${infoAntigo}" do Produto ${nomes[prod]} \nforam ALTERADOS para "${(novoNome)}".`)
     
-    gravaProdutos();
+    gravaAtivos();
   }
 }
 
@@ -421,7 +429,7 @@ function alterarPreco() {
   
     console.log(`\n✅ O preço do produto ${nomes[prod]} foi ALTERADO para R$ ${(novoPreco.toFixed(2))}.`)
     
-    gravaProdutos();
+    gravaAtivos();
   }
 }
 
@@ -454,32 +462,33 @@ function exclusao() {
 
     // Info de Exclusão e Salva Produtos
     console.log(`\n❌ Este produto EXCLUÍDO foi excluído.`)
-    gravaProdutos();
+    gravaAtivos();
   }
 }
 
-function gravaProdutos() {
-  const produtos = [];
+*/
+function gravaAtivos() {
+  const ativos = [];
 
-  for (i in nomes) {
-    produtos.push(
-      nomes[i] +
-        ";" +
-        categorias[i] +
-        ";" +
-        igredientes[i] +
-        ";" +
-        precos[i] +
-        ";" +
-        fotos[i]
+  for (i in modelos) {
+    ativos.push(
+      modelos[i] + ";" +
+      marcas[i] + ";" +
+      anos[i] + ";" +
+      quilometragens[i] + ";" +
+      especificacoes[i] + ";" +
+      fipes[i] + ";" +
+      precos[i] + ";" +
+      fotos[i]
     );
   }
 
   //Salvar dados do Vetor
-  fs.writeFileSync("produtos.txt", produtos.join("\n"));
+  fs.writeFileSync("ativos.txt", ativos.join("\n"));
   console.log(`\n🔹 Volte Sempre!\n`);
 }
 
+/*
 function obtemProdutos() {
   if (fs.existsSync("produtos.txt")) {
     // SE produtos.txt existir ENTÃO...
@@ -502,27 +511,36 @@ function obtemProdutos() {
 
 // Carregar lista de produtos antes do Menu (se existir arquivo)
 obtemProdutos();
+*/
+
 //---------------------------------- PROGRAMA PRINCIPAL ---------------------------------------
 
 menuPrincipal: 
 do {
   console.log(
     "\n"+"-".repeat(83) +
-      "\n🍔 LANCHERIA AVENIDA - CONTROLE DE CARDÁPIO\n" +
+      "\n🚗 SCHUG REVENDA DE VEÍCULOS - CONTROLE DE ESTOQUE\n" +
       "-".repeat(83)
   );
-  console.log("\n1. 📝 Inclusão de Produtos");
-  console.log("2. 📋 Listagem de Produtos");
-  console.log("3. 🔍 Pesquisa por Categoria");
-  console.log("4. 🔎 Pesquisa por Intervalo de Preço");
-  console.log("5. 📖 Gerar Cardápio Web");
-  console.log("6. 🌐 Gerar Cardápio Web por Categoria");
-  console.log("7. 🔡 Alterar Nome de Produto");
-  console.log("8. 🛒 Alterar Categoria de Produto");
-  console.log("9. 🥗 Alterar Igredientes de Produto");
-  console.log("10.💱 Alterar Preço de Produto");
-  console.log("11.❌ Excluir Produto");
-  console.log("12.↩️ Finalizar");
+  console.log("\n1. 📝 Inclusão de Ativo\n\n");
+  console.log("2. 📋 Estoque de Ativos");
+  console.log("3. 🔍 Pesquisa por Marca");
+  console.log("3. 🔍 Pesquisa por Ano");
+  console.log("4. 🔎 Pesquisa por Intervalo de Quilometragem");
+  console.log("5. 🔎 Pesquisa por Intervalo de Preço\n");
+  console.log("6. 🔡 Alterar Modelo do Ativo");
+  console.log("7. 🛒 Alterar Marca de Ativo");
+  console.log("8. 🥗 Alterar Ano de Ativo");
+  console.log("9.💱 Alterar Quilometragem de Ativo");
+  console.log("10.💱 Alterar Especificações de Ativo");
+  console.log("11.💱 Alterar Preço do Ativo\n");
+  console.log("12. 📖 Gerar Estoque Web");
+  console.log("13. 🌐 Gerar Estoque Web por Marca");
+  console.log("14. 🌐 Gerar Estoque Web por Ano");
+  console.log("15. 🌐 Gerar Estoque Web por Intervalo de Quilometragem");
+  console.log("16. 🌐 Gerar Estoque Web por Intervalo de Valor\n\n");
+  console.log("17.❌ Excluir Ativo\n");
+  console.log("18.↩️ Finalizar");
   const opcao = Number(prompt("\n🔸 Opção: "));
 
   switch (opcao) {
@@ -575,5 +593,5 @@ do {
   }
 } while (true);
 
-// Chamar função gravaProdutos(), assim que o programa finalizar
-gravaProdutos();
+// Chamar função gravaAtivos(), assim que o programa finalizar
+gravaAtivos();
