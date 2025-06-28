@@ -1,5 +1,9 @@
+// IMPORTS ------------------------------------------------------------------------------------------
+
 const prompt = require("prompt-sync")();
 const fs = require("fs"); // fs: file system (para manipular aqruivos)
+
+// ARRAYS -------------------------------------------------------------------------------------------
 
 const modelos = [];
 const marcas = [];
@@ -10,6 +14,8 @@ const fipes = [];
 const precos = [];
 const fotos = [];
 
+// SMART FUNCTIONS ----------------------------------------------------------------------------------
+
 function chamaCabecalho() {
   console.log('Modelo..........: Marca......: Ano.: KM....: Espeficicações.......................: FIPE.....: REVENDA..:\n')
 }
@@ -18,6 +24,53 @@ function chamaLinha(i) {
   console.log(
   `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(5)} ${String(quilometragens[i].toLocaleString("pt-br")).padStart(7)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
 }
+
+const htmlInicio = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Schug Revenda | ESTOQUE </title>
+    <style>
+        body {  font-family: Arial; margin: 30px; background-color: white;}
+        h1 { color: brown; }
+        table{width: 100%; border-collapse: collapse; background-color: white; border-bottom: 1px 1px 6px #999; border-radius: 8px; overflow: hidden;}
+        th, td {padding: 12px; text-align: left; border-bottom: 1px solid #ccc;}
+        th{background-color: #e0dede; color: #333;}
+        img{max-width: 100px; max-height: 120px; border-radius:4px;}
+        tr:hover {background-color: #f9f9f9;}
+    </style>
+
+</head>
+<body>
+    <h1> 🚗 SCHUG REVENDA DE VEÍCULOS | CONTROLE DE ESTOQUE</h1>
+        `
+
+const hmtlFinal = `
+                </tbody>
+            </table>
+        </body>
+        </html>
+        `;
+
+const htmlCabecalho = `
+<table>
+        <thead>
+            <tr>
+                <th>Modelo</th>
+                <th>Marca</th>
+                <th>Ano</th>
+                <th>Quilometragem</th>
+                <th>Especificações</th>
+                <th>Valor da FIPE</th>
+                <th>Preço de Revenda</th>
+                <th>Imagem</th>
+            </tr>
+        </thead>
+        <tbody>
+        `
+
+// OPTIONS FUNCTIONS --------------------------------------------------------------------------------
 
 function inclusao() {
 
@@ -63,13 +116,10 @@ function listagem() {
     // TÍTULO da Secção
   console.log('\n'+"-".repeat(104) + "\n📋 Listagem dos Ativos Cadastrados\n" + "-".repeat(104) + "\n")
 
-  console.log(
-    `\nModelo..........: Marca......: Ano.: KM...: Espeficicações.......................: FIPE.....: REVENDA..:\n`
-  );
+  chamaCabecalho()
 
   for (let i in modelos) {
-    console.log(
-      `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(5)} ${String(quilometragens[i]).padStart(6)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
+    chamaLinha(i)  
   }
   console.log()
 }
@@ -239,139 +289,81 @@ function pesquisaPreco() {
 
 }
 
-/*
-function cardapioWeb() {
-  let conteudo = `
-        <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardápio |  Lancheria Avenida</title>
-    <style>
-        body {  font-family: Arial; margin: 30px; background-color: white;}
-        h1 { color: brown; }
-        table{width: 100%; border-collapse: collapse; background-color: white; border-bottom: 1px 1px 6px #999; border-radius: 8px; overflow: hidden;}
-        th, td {padding: 12px; text-align: left; border-bottom: 1px solid #ccc;}
-        th{background-color: #e0dede; color: #333;}
-        img{max-width: 100px; max-height: 120px; border-radius:4px;}
-        tr:hover {background-color: #f9f9f9;}
-    </style>
-
-</head>
-<body>
-    <h1>🍔 LANCHERIA AVENIDA | Cardápio Online</h1>
-    
-    <table>
-        <thead>
-
-            <tr>
-                <th>Produto</th>
-                <th>Categoria</th>
-                <th>Igredientes</th>
-                <th>Preço R$</th>
-                <th>Imagem Ilustrativa</th>
-            </tr>
-        </thead>
-        <tbody>
-        `;
-  for (i in nomes) {
+function ativosWeb() {
+  let principal = modelos
+  
+  let conteudo = htmlInicio + htmlCabecalho
+  
+  for (i in principal) {
     conteudo += `
-            <tr>
-                <td>${nomes[i]}</td>
-                <td>${categorias[i]}</td>
-                <td>${igredientes[i]}</td>
-                <td>${precos[i].toFixed(2)}</td>
-                <td><img src="${fotos[i]}" alt="Foto do Produto"></td>
-            </tr>
-            `;
+    <tr>
+        <td>${modelos[i]}</td>
+        <td>${marcas[i]}</td>
+        <td>${anos[i]}</td>
+        <td>${String(quilometragens[i].toLocaleString("pt-br", { maximumSignificantDigits: 2}))} km</td>
+        <td>${especificacoes[i]}</td>
+        <td>R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 3}))}</td>
+        <td>R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 3}))}</td>
+        <td><img src="${fotos[i]}" alt="Veículo"></td>
+    </tr>
+    `
   }
 
-  conteudo += `
-                </tbody>
-            </table>
-        </body>
-        </html>
-        `;
+  conteudo += hmtlFinal
 
-  fs.writeFileSync("cardapioWeb.html", conteudo);
+  fs.writeFileSync("ativosWeb.html", conteudo);
 
-  console.log(
-    `\n✅ Cardápio gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/programa-lancheria/cardapioWeb.html`
+  console.log(principal)
+  console.log(`\n✅ Estoque de Ativos gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/revenda-veiculos/ativosWeb.html`
   );
 }
 
-function CardapioporCategoria() {
-  
+function ativosMarcaWeb() {
+  let principal = marcas
+  let nome = 'Marca'
+
   // Título da Secção
-  console.log("-".repeat(83) + "\n🔍 Cadápio por Categoria Web\n" + "-".repeat(83) + "\n");
+  console.log("-".repeat(104) + `\n🌐 Gerar Estoque Web por ${nome}\n` + "-".repeat(104) + "\n");
 
   // Entrada da Categoria
-
-  const cat = prompt("🔹 Categoria............: ").toUpperCase();
+  const pesquisa = prompt("🔹 Marca............: ").toUpperCase();
 
   // Contador de Itens
   let contador = 0;
-  for (i in categorias) {
-      if (cat == categorias[i]) { // SE existir itens nesta categoria ENTÃO...
+  for (i in principal) {
+      if (pesquisa == principal[i]) { // SE existir itens nesta categoria ENTÃO...
           contador++; // Conte...
       }
   }
 
-  let conteudoInicio
+  let conteudoInicio = htmlInicio
   let conteudoMeio
-    // Início da página
-    conteudoInicio = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Cardápio |  Lancheria Avenida</title>
-      <style>
-      body {  font-family: Arial; margin: 30px; background-color: white;}
-      h1 { color: brown; }
-      table{width: 100%; border-collapse: collapse; background-color: white; border-bottom: 1px 1px 6px #999; border-radius: 8px; overflow: hidden;}
-      th, td {padding: 12px; text-align: left; border-bottom: 1px solid #ccc;}
-      th{background-color: #e0dede; color: #333;}
-      img{max-width: 100px; max-height: 120px; border-radius:4px;}
-      tr:hover {background-color: #f9f9f9;}
-      </style>
-      </head>
-      <body>
-      <h1>🍔 LANCHERIA AVENIDA | Cardápio Online</h1>
-      ` 
 
-    // Tabela dos Itens
-    if (contador == 0) {// SE a Contagem deu 0 ENTÃO ...
-        console.log("\n🔶 Não há itens nesta Categoria...\n")
+  // Tabela dos Itens
+    if (anos[i] >= min & anos[i] <= max) {// SE a Contagem deu 0 ENTÃO ...
+        console.log(`\n🔶 Não há Ativos deste ${nome}...\n`)
         conteudoMeio = `
-        <h3>🔶 Não há itens nesta Categoria...</h3>
+        <h3>🔶 Não há Ativos neste invervalo de ${nome}...</h3>
         </body>
         </html>
         `
       } else {
-        conteudoMeio = `
-          <table>
-            <thead>    
-              <tr>
-                <th>Produto</th>
-                <th>Categoria</th>
-                <th>Igredientes</th>
-                <th>Preço R$</th>
-                <th>Imagem Ilustrativa</th>      
-        `
+        conteudoMeio = htmlCabecalho
 
-      for (i in categorias) {
-        if (cat == categorias[i]) { // SE existir itens nesta categoria ENTÃO...
-          conteudoMeio+=`
-          <tr>
-              <td>${nomes[i]}</td>
-              <td>${categorias[i]}</td>
-              <td>${igredientes[i]}</td>
-              <td>${precos[i].toFixed(2)}</td>
-              <td><img src="${fotos[i]}" alt="Foto do Produto"></td>
-              `
+      for (i in principal) {
+        if (pesquisa == principal[i]) { // SE existir itens nesta categoria ENTÃO...
+          conteudoMeio+= `
+        <tr>
+          <td>${modelos[i]}</td>
+          <td>${marcas[i]}</td>
+          <td>${anos[i]}</td>
+          <td>${String(quilometragens[i].toLocaleString("pt-br", { maximumSignificantDigits: 2}))} km</td>
+          <td>${especificacoes[i]}</td>
+          <td>R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 3}))}</td>
+          <td>R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 3}))}</td>
+          <td><img src="${fotos[i]}" alt="Veículo"></td>
+        </tr>
+        `
         }
       }
 
@@ -388,47 +380,450 @@ function CardapioporCategoria() {
   conteudo = conteudoInicio + conteudoMeio
 
   // Incluindo o conteudo no html
-  fs.writeFileSync("cardapioCategoriaWeb.html", conteudo);
+  fs.writeFileSync("ativosPesquisaWeb.html", conteudo);
 
   // Finalizando o Processo
   console.log(
-    `\n✅ Cardápio gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/programa-lancheria/cardapioCategoriaWeb.html`
+    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/revenda-veiculos/ativosPesquisaWeb.html`
   );
 }
 
-function alterarProduto() {
+function ativosAnoWeb() {
+  let principal = anos
+  let nome = 'Ano'
+
+  // Título da Secção
+  console.log("-".repeat(104) + `\n🌐 Gerar Estoque Web por ${nome}\n` + "-".repeat(104) + "\n");
+
+  // Entrada de intervalo mínimos e máximos:
+  const min = Number(prompt(`🔻 ${nome} Mínimo............: `));
+  const max = Number(prompt(`🔺 ${nome} Máximo............: `));  
+
+  // Contador de Itens
+  let contador = 0;
+  for (i in principal) {
+      if (principal[i] >= min & principal[i] <= max) { // SE existir itens nesta categoria ENTÃO...
+          contador++; // Conte...
+      }
+  }
+
+  let conteudoInicio = htmlInicio
+  let conteudoMeio
+
+  // Tabela dos Itens
+    if (contador == 0) {// SE a Contagem deu 0 ENTÃO ...
+        console.log(`\n🔶 Não há Ativos neste intervalo de ${nome}...\n`)
+        conteudoMeio = `
+        <h3>🔶 Não há Ativos neste intervalo de ${nome}...</h3>
+        </body>
+        </html>
+        `
+      } else {
+        conteudoMeio = htmlCabecalho
+
+      for (i in principal) {
+        if (principal[i] >= min & principal[i] <= max) { // SE existir itens nesta categoria ENTÃO...
+          conteudoMeio+= `
+            <tr>
+                <td>${modelos[i]}</td>
+                <td>${marcas[i]}</td>
+                <td>${anos[i]}</td>
+                <td>${String(quilometragens[i].toLocaleString("pt-br", { maximumSignificantDigits: 2}))} km</td>
+                <td>${especificacoes[i]}</td>
+                <td>R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 3}))}</td>
+                <td>R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 3}))}</td>
+                <td><img src="${fotos[i]}" alt="Veículo"></td>
+            </tr>
+            `
+        }
+      }
+
+        conteudoMeio += `
+          </tr>
+          </tbody>
+          </table>
+          </body>
+          </html>
+          `
+      }
+
+  //Juntando as 3 partes
+  conteudo = conteudoInicio + conteudoMeio
+
+  // Incluindo o conteudo no html
+  fs.writeFileSync("ativosPesquisaWeb.html", conteudo);
+
+  // Finalizando o Processo
+  console.log(
+    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/revenda-veiculos/ativosPesquisaWeb.html`
+  );
+}
+
+function ativosKmWeb() {
+  let principal = quilometragens
+  let nome = 'Quilometragem'
+
+  // Título da Secção
+  console.log("-".repeat(104) + `\n🌐 Gerar Estoque Web por ${nome}\n` + "-".repeat(104) + "\n");
+
+  // Entrada de intervalo mínimos e máximos:
+  const min = Number(prompt(`🔻 ${nome} Mínima............: `));
+  const max = Number(prompt(`🔺 ${nome} Máxima............: `));  
+
+  // Contador de Itens
+  let contador = 0;
+  for (i in principal) {
+      if (principal[i] >= min & principal[i] <= max) { // SE existir itens nesta categoria ENTÃO...
+          contador++; // Conte...
+      }
+  }
+
+  let conteudoInicio = htmlInicio
+  let conteudoMeio
+
+  // Tabela dos Itens
+    if (contador == 0) {// SE a Contagem deu 0 ENTÃO ...
+        console.log(`\n🔶 Não há Ativos neste intervalo de ${nome}...\n`)
+        conteudoMeio = `
+        <h3>🔶 Não há Ativos neste intervalo de ${nome}...</h3>
+        </body>
+        </html>
+        `
+      } else {
+        conteudoMeio = htmlCabecalho
+
+      for (i in principal) {
+        if (principal[i] >= min & principal[i] <= max) { // SE existir itens nesta categoria ENTÃO...
+          conteudoMeio+= `
+            <tr>
+                <td>${modelos[i]}</td>
+                <td>${marcas[i]}</td>
+                <td>${anos[i]}</td>
+                <td>${String(quilometragens[i].toLocaleString("pt-br", { maximumSignificantDigits: 2}))} km</td>
+                <td>${especificacoes[i]}</td>
+                <td>R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 3}))}</td>
+                <td>R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 3}))}</td>
+                <td><img src="${fotos[i]}" alt="Veículo"></td>
+            </tr>
+            `
+        }
+      }
+
+        conteudoMeio += `
+          </tr>
+          </tbody>
+          </table>
+          </body>
+          </html>
+          `
+      }
+
+  //Juntando as 3 partes
+  conteudo = conteudoInicio + conteudoMeio
+
+  // Incluindo o conteudo no html
+  fs.writeFileSync("ativosPesquisaWeb.html", conteudo);
+
+  // Finalizando o Processo
+  console.log(
+    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/revenda-veiculos/ativosPesquisaWeb.html`
+  );
+}
+
+function ativosPrecoWeb() {
+  let principal = precos
+  let nome = 'Valor'
+
+  // Título da Secção
+  console.log("-".repeat(104) + `\n🌐 Gerar Estoque Web por Intervalo  de ${nome}\n` + "-".repeat(104) + "\n");
+
+  // Entrada de intervalo mínimos e máximos:
+  const min = Number(prompt(`🔻 ${nome} Mínimo............: `));
+  const max = Number(prompt(`🔺 ${nome} Máximo............: `));  
+
+  // Contador de Itens
+  let contador = 0;
+  for (i in principal) {
+      if (principal[i] >= min & principal[i] <= max) { // SE existir itens nesta categoria ENTÃO...
+          contador++; // Conte...
+      }
+  }
+
+  let conteudoInicio = htmlInicio
+  let conteudoMeio
+
+  // Tabela dos Itens
+    if (contador == 0) {// SE a Contagem deu 0 ENTÃO ...
+        console.log(`\n🔶 Não há Ativos neste intervalo de ${nome}...\n`)
+        conteudoMeio = `
+        <h3>🔶 Não há Ativos neste intervalo de ${nome}...</h3>
+        </body>
+        </html>
+        `
+      } else {
+        conteudoMeio = htmlCabecalho
+
+      for (i in principal) {
+        if (principal[i] >= min & principal[i] <= max) { // SE existir itens nesta categoria ENTÃO...
+          conteudoMeio+= `
+            <tr>
+                <td>${modelos[i]}</td>
+                <td>${marcas[i]}</td>
+                <td>${anos[i]}</td>
+                <td>${String(quilometragens[i].toLocaleString("pt-br", { maximumSignificantDigits: 2}))} km</td>
+                <td>${especificacoes[i]}</td>
+                <td>R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 3}))}</td>
+                <td>R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 3}))}</td>
+                <td><img src="${fotos[i]}" alt="Veículo"></td>
+            </tr>
+            `
+        }
+      }
+
+        conteudoMeio += `
+          </tr>
+          </tbody>
+          </table>
+          </body>
+          </html>
+          `
+      }
+
+  //Juntando as 3 partes
+  conteudo = conteudoInicio + conteudoMeio
+
+  // Incluindo o conteudo no html
+  fs.writeFileSync("ativosPesquisaWeb.html", conteudo);
+
+  // Finalizando o Processo
+  console.log(
+    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/revenda-veiculos/ativosPesquisaWeb.html`
+  );
+}
+
+function alterarModelo() {
+  let principal = modelos
+  let nome = 'Modelo'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(83) + "\n💱 Alterar Nome de Produto\n" + "-".repeat(83) + "\n")
+  console.log('\n'+"-".repeat(104) + "\n💱 Alterar Modelo do Ativo\n" + "-".repeat(104) + "\n")
 
-  // Exibe a TABELA de Produtos e Preços
-  console.log(`\nID..: Produto............:\n`)
-  for (let i in nomes) {
+  // Exibe a TABELA de Ativos e Preços
+  console.log(`\nID..: Modelo..........: \n`)
+  for (let i in principal) {
     let aux = Number(i)+1
-    console.log(`${String(aux).padEnd(5)} ${nomes[i].padEnd(20)}`);
+    console.log(`${String(aux).padEnd(5)} ${principal[i].padEnd(20)}`);
   }
 
   // ENTRADA do índice do produto à alterar
-  let prod = Number(prompt("\n🔹 Informe o 'ID' do Produto: "))
+  let prod = Number(prompt(`\n🔹 Informe o 'ID' do ${nome}: `))
   
   // Verifica se a ENTRADA É UM NÚMERO VÁLIDO
-  if (isNaN(prod) || prod < 1 || prod > nomes.length) {
-    console.log("\n🔶 Ops... O índice do produto informado não existe.")
+  if (isNaN(prod) || prod < 1 || prod > principal.length) {
+    console.log(`\n🔶 O índice do ${nome} informado não existe.`)
   } else {
     prod-=1
-    const nomeAntigo = nomes[prod]
-    console.log(`   ${nomes[prod].padEnd(26)}`)
+    const nomeAntigo = principal[prod]
+    console.log(`   ${principal[prod].padEnd(26)}`)
     do{
-    novoNome = prompt("🔹 Infome o Novo Nome: ")
-    } while(isNaN(novoNome)== false)
-    nomes[prod] = novoNome
+    alteracao = prompt(`🔹 Infome o Novo ${nome}: `)
+    } while(isNaN(alteracao)== false)
+    
+    //Item para alteração
+    modelos[prod] = alteracao
   
-    console.log(`\n✅ Produto ${nomeAntigo} foi ALTERADO para ${(novoNome)}.`)
+    console.log(`\n✅ Ativo ${nomeAntigo} foi ALTERADO para ${(alteracao)}.`)
     
     gravaAtivos();
   }
 }
 
+function alterarMarca() {
+  let principal = marcas
+  let nome = 'Marca'
+
+  // TÍTULO da Secção
+  console.log('\n'+"-".repeat(104) + `\n💱 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+
+  // Exibe a TABELA de Ativos e Preços
+  console.log(`\nID..: Modelo..........: \n`)
+  for (let i in principal) {
+    let aux = Number(i)+1
+    console.log(`${String(aux).padEnd(5)} ${modelos[i].padEnd(20)}`);
+  }
+
+  // ENTRADA do índice do produto à alterar
+  let prod = Number(prompt(`\n🔹 Informe o 'ID' do Ativo: `))
+  
+  // Verifica se a ENTRADA É UM NÚMERO VÁLIDO
+  if (isNaN(prod) || prod < 1 || prod > principal.length) {
+    console.log(`\n🔶 O índice do Ativo informado não existe.`)
+  } else {
+    prod-=1
+    const nomeAntigo = principal[prod]
+    console.log(`   ${principal[prod].padEnd(26)}`)
+    do{
+    alteracao = prompt(`🔹 Infome a Nova ${nome}: `).toUpperCase()
+    } while(isNaN(alteracao)== false)
+    
+    //Item para alteração
+    marcas[prod] = alteracao
+  
+    console.log(`\n✅ ${nome} do Ativo ${modelos[i]} foi ALTERADA para ${(alteracao)}.`)
+    
+    gravaAtivos();
+  }
+}
+
+function alterarAno() {
+  let principal = anos
+  let nome = 'Ano'
+
+  // TÍTULO da Secção
+  console.log('\n'+"-".repeat(104) + `\n💱 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+
+  // Exibe a TABELA de Ativos e Preços
+  console.log(`\nID..: Modelo..........: \n`)
+  for (let i in principal) {
+    let aux = Number(i)+1
+    console.log(`${String(aux).padEnd(5)} ${modelos[i].padEnd(20)}`);
+  }
+
+  // ENTRADA do índice do Ativo à alterar
+  let prod = Number(prompt(`\n🔹 Informe o 'ID' do Ativo: `))
+  
+  // Verifica se a ENTRADA É UM NÚMERO VÁLIDO
+  if (isNaN(prod) || prod < 1 || prod > principal.length) {
+    console.log(`\n🔶 O índice do Ativo informado não existe.`)
+  } else {
+    prod-=1
+    const nomeAntigo = principal[prod]
+    console.log(`    ${principal[prod]}`)
+    do{
+    alteracao = Number(prompt(`🔹 Infome a Novo ${nome}: `))
+    } while(isNaN(alteracao))
+    
+    //Item para alteração
+    anos[prod] = alteracao
+  
+    console.log(`\n✅ ${nome} do Ativo ${modelos[i]} foi ALTERADO de ${nomeAntigo} para ${(alteracao)}.`)
+    
+    gravaAtivos();
+  }
+}
+
+function alterarKM() {
+  let principal = quilometragens
+  let nome = 'Quilometragem'
+
+  // TÍTULO da Secção
+  console.log('\n'+"-".repeat(104) + `\n💱 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+
+  // Exibe a TABELA de Ativos e Preços
+  console.log(`\nID..: Modelo..........: \n`)
+  for (let i in principal) {
+    let aux = Number(i)+1
+    console.log(`${String(aux).padEnd(5)} ${modelos[i].padEnd(20)}`);
+  }
+
+  // ENTRADA do índice do Ativo à alterar
+  let prod = Number(prompt(`\n🔹 Informe o 'ID' do Ativo: `))
+  
+  // Verifica se a ENTRADA É UM NÚMERO VÁLIDO
+  if (isNaN(prod) || prod < 1 || prod > principal.length) {
+    console.log(`\n🔶 O índice do Ativo informado não existe.`)
+  } else {
+    prod-=1
+    const nomeAntigo = principal[prod]
+    console.log(`    ${principal[prod].toLocaleString("pt-br")}`)
+    do{
+    alteracao = Number(prompt(`🔹 Infome a Nova ${nome}: `))
+    } while(isNaN(alteracao))
+    
+    //Item para alteração
+    quilometragens[prod] = alteracao
+  
+    console.log(`\n✅ ${nome} do Ativo ${modelos[i]} foi ALTERADA de ${nomeAntigo.toLocaleString("pt-br")} km para ${(alteracao.toLocaleString("pt-br"))} km.`)
+    
+    gravaAtivos();
+  }
+}
+
+function alterarObs() {
+  let principal = especificacoes
+  let nome = 'Especificações'
+
+  // TÍTULO da Secção
+  console.log('\n'+"-".repeat(104) + `\n💱 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+
+  // Exibe a TABELA de Ativos e Preços
+  console.log(`\nID..: Modelo..........: \n`)
+  for (let i in principal) {
+    let aux = Number(i)+1
+    console.log(`${String(aux).padEnd(5)} ${modelos[i].padEnd(20)}`);
+  }
+
+  // ENTRADA do índice do produto à alterar
+  let prod = Number(prompt(`\n🔹 Informe o 'ID' do Ativo: `))
+  
+  // Verifica se a ENTRADA É UM NÚMERO VÁLIDO
+  if (isNaN(prod) || prod < 1 || prod > principal.length) {
+    console.log(`\n🔶 O índice do Ativo informado não existe.`)
+  } else {
+    prod-=1
+    const nomeAntigo = principal[prod]
+    console.log(`   ${principal[prod].padEnd(26)}`)
+    do{
+    alteracao = prompt(`🔹 Infome as Novas ${nome}: `)
+    } while(isNaN(alteracao)== false)
+    
+    //Item para alteração
+    especificacoes[prod] = alteracao
+  
+    console.log(`\n✅ ${nome} do Ativo ${modelos[i]} foram ALTERADAS de '${nomeAntigo}' para '${(alteracao)}'.`)
+    
+    gravaAtivos();
+  }
+}
+
+function alterarPreco() {
+  let principal = precos
+  let nome = 'Valor'
+
+  // TÍTULO da Secção
+  console.log('\n'+"-".repeat(104) + `\n💱 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+
+  // Exibe a TABELA de Ativos e Preços
+  console.log(`\nID..: Modelo..........: \n`)
+  for (let i in principal) {
+    let aux = Number(i)+1
+    console.log(`${String(aux).padEnd(5)} ${modelos[i].padEnd(20)}`);
+  }
+
+  // ENTRADA do índice do Ativo à alterar
+  let prod = Number(prompt(`\n🔹 Informe o 'ID' do Ativo: `))
+  
+  // Verifica se a ENTRADA É UM NÚMERO VÁLIDO
+  if (isNaN(prod) || prod < 1 || prod > principal.length) {
+    console.log(`\n🔶 O índice do Ativo informado não existe.`)
+  } else {
+    prod-=1
+    const nomeAntigo = modelos[prod]
+    console.log(`   R$ ${principal[prod].toLocaleString("pt-br")}`)
+    do{
+    alteracao = Number(prompt(`🔹 Infome o Novo ${nome}: `))
+    } while(isNaN(alteracao))
+    
+    //Item para alteração
+    precos[prod] = alteracao
+  
+    console.log(`\n✅ ${nome} do Ativo ${nomeAntigo} foi ALTERADO para R$ ${(alteracao).toLocaleString("pt-br")}.`)
+    
+    gravaAtivos();
+  }
+}
+
+/*
 function alterarCategoria() {
 
   // TÍTULO da Secção
@@ -526,41 +921,43 @@ function alterarPreco() {
     gravaAtivos();
   }
 }
-
+*/
 function exclusao() {
   // TÍTULO da Secção
-  console.log("-".repeat(83) + "\n❌ Excluir Produto\n" + "-".repeat(83) + "\n")
+  console.log("-".repeat(104) + "\n❌ Excluir Produto\n" + "-".repeat(104) + "\n")
 
   // Exibe a TABELA de Produtos e Preços
-  console.log(`\nProduto............:\n`
+  console.log(`\nModelo..........: \n`
       )
-  for (let i in nomes) {
-    console.log(`${Number(i)+1} ${nomes[i].padEnd(20)}`);
+  for (let i in modelos) {
+    console.log(`${Number(i)+1} ${modelos[i].padEnd(17)}`);
   }
 
-  // ENTRADA do índice do produto à alterar
-  let prod = Number(prompt("\n🔹 Nº do Produto: "))
+  // ENTRADA do índice do ativo à alterar
+  let prod = Number(prompt("\n🔹 Nº do Ativo: "))
   
   // Verifica se a ENTRADA É UM NÚMERO VÁLIDO
-  if (prod < 1 || prod > nomes.length || isNaN(prod)) {
-    console.log("\n🔶 Ops... O índice do produto informado não existe.")
+  if (prod < 1 || prod > modelos.length || isNaN(prod)) {
+    console.log("\n🔶 O índice do produto informado não existe.")
   } else {
     prod-=1
-    let antigoProduto = nomes[prod]
+    const antigoProduto = modelos[prod]
     // Excluindo itens (método SPLICE)
-    nomes.splice(prod,1)
-    categorias.splice(prod,1)
-    igredientes.splice(prod,1)
+    modelos.splice(prod,1)
+    marcas.splice(prod,1)
+    anos.splice(prod,1)
+    quilometragens.splice(prod,1)
+    especificacoes.splice(prod,1)
+    fipes.splice(prod,1)
     precos.splice(prod,1)
     fotos.splice(prod,1)
 
     // Info de Exclusão e Salva Produtos
-    console.log(`\n❌ Este produto EXCLUÍDO foi excluído.`)
+    console.log(`\n❌ O Ativo ${antigoProduto} foi EXCLUÍDO.`)
     gravaAtivos();
   }
 }
 
-*/
 function gravaAtivos() {
   const ativos = [];
 
@@ -664,21 +1061,50 @@ do {
       break;
     }
     case 7: {
-      alterarProduto();
+      alterarModelo();
       break;
     }
-        case 8: {
-      alterarCategoria();
+    case 8: {
+      alterarMarca();
       break;
-    }    case 9: {
-      alterarIgredientes();
+    }    
+    case 9: {
+      alterarAno();
       break;
     }
     case 10: {
-      alterarPreco();
+      alterarKM();
       break;
     }
     case 11: {
+      alterarObs();
+      break;
+    }
+    case 12: {
+      alterarPreco();
+      break;
+    }
+    case 13: {
+      ativosWeb();
+      break;
+    }
+    case 14: {
+      ativosMarcaWeb();
+      break;
+    }
+    case 15: {
+      ativosAnoWeb();
+      break;
+    }
+    case 16: {
+      ativosKmWeb();
+      break;
+    }
+    case 17: {
+      ativosPrecoWeb();
+      break;
+    }
+    case 18: {
       exclusao();
       break;
     }
