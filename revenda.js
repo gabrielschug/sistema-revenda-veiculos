@@ -169,7 +169,7 @@ function pesquisaAno() {
 
     // Título da Secção
     console.log(
-      '\n'+"-".repeat(104) + "\n🔍 Pesquisa por Ano\n" + "-".repeat(104) + "\n"
+      '\n'+"-".repeat(104) + "\n🔎 Pesquisa por Ano\n" + "-".repeat(104) + "\n"
     );
 
     // Entrada de anos mínimos e máximos:
@@ -257,7 +257,7 @@ function pesquisaPreco() {
 
     // Título da Secção
     console.log(
-      '\n'+"-".repeat(104) + "\n🔍 Pesquisa por Preço\n" + "-".repeat(104) + "\n"
+      '\n'+"-".repeat(104) + "\n🔎 Pesquisa por Preço\n" + "-".repeat(104) + "\n"
     );
 
     // Entrada de anos mínimos e máximos:
@@ -313,7 +313,6 @@ function ativosWeb() {
 
   fs.writeFileSync("ativosWeb.html", conteudo);
 
-  console.log(principal)
   console.log(`\n✅ Estoque de Ativos gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/revenda-veiculos/ativosWeb.html`
   );
 }
@@ -606,7 +605,7 @@ function alterarModelo() {
   let nome = 'Modelo'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + "\n💱 Alterar Modelo do Ativo\n" + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(104) + "\n🔡 Alterar Modelo do Ativo\n" + "-".repeat(104) + "\n")
 
   // Exibe a TABELA de Ativos e Preços
   console.log(`\nID..: Modelo..........: \n`)
@@ -643,7 +642,7 @@ function alterarMarca() {
   let nome = 'Marca'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + `\n💱 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(104) + `\n🔖 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
 
   // Exibe a TABELA de Ativos e Preços
   console.log(`\nID..: Modelo..........: \n`)
@@ -680,7 +679,7 @@ function alterarAno() {
   let nome = 'Ano'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + `\n💱 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(104) + `\n🗓️ Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
 
   // Exibe a TABELA de Ativos e Preços
   console.log(`\nID..: Modelo..........: \n`)
@@ -717,7 +716,7 @@ function alterarKM() {
   let nome = 'Quilometragem'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + `\n💱 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(104) + `\n🛣️ Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
 
   // Exibe a TABELA de Ativos e Preços
   console.log(`\nID..: Modelo..........: \n`)
@@ -754,7 +753,7 @@ function alterarObs() {
   let nome = 'Especificações'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + `\n💱 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(104) + `\n✴️ Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
 
   // Exibe a TABELA de Ativos e Preços
   console.log(`\nID..: Modelo..........: \n`)
@@ -823,105 +822,6 @@ function alterarPreco() {
   }
 }
 
-/*
-function alterarCategoria() {
-
-  // TÍTULO da Secção
-  console.log('\n'+"-".repeat(83) + "\n🛒 Alterar Categoria de Produto\n" + "-".repeat(83) + "\n")
-
-  // Exibe a TABELA de Produtos e Preços
-  console.log(`\nID..: Produto............: Categoria: \n`)
-  for (let i in nomes) {
-    let aux = Number(i)+1
-    console.log(`${String(aux).padEnd(5)} ${nomes[i].padEnd(20)} ${categorias[i].padEnd(10)}`);
-  }
-
-  // ENTRADA do índice do produto à alterar
-  let prod = Number(prompt("\n🔹 Informe o 'ID' do Produto: "))
-  
-  // Verifica se a ENTRADA É UM NÚMERO VÁLIDO
-  if (isNaN(prod) || prod < 1 || prod > nomes.length) {
-    console.log("\n🔶 Ops... O índice do produto informado não existe.")
-  } else {
-    prod-=1
-    const infoAntigo = categorias[prod]
-    console.log(`   ${nomes[prod].padEnd(26)} ${categorias[prod].padEnd(10)}`)
-    do{
-    novoNome = prompt("🔹 Infome a Nova Categoria:   ").toUpperCase()
-    } while(isNaN(novoNome)== false)
-    categorias[prod] = novoNome
-  
-    console.log(`\n✅ A Categoria ${infoAntigo} do Produto ${nomes[prod]} foi ALTERADA para ${(novoNome)}.`)
-    
-    gravaAtivos();
-  }
-}
-
-function alterarIgredientes() {
-
-  // TÍTULO da Secção
-  console.log('\n'+"-".repeat(83) + "\n🥗 Alterar Igredientes de Produto\n" + "-".repeat(83) + "\n")
-
-  // Exibe a TABELA de Produtos e Preços
-  console.log(`\nID..: Produto............: Igredientes............................: \n`)
-  for (let i in nomes) {
-    let aux = Number(i)+1
-    console.log(`${String(aux).padEnd(5)} ${nomes[i].padEnd(20)} ${igredientes[i].padEnd(40)}`);
-  }
-
-  // ENTRADA do índice do produto à alterar
-  let prod = Number(prompt("\n🔹 Informe o 'ID' do Produto: "))
-  
-  // Verifica se a ENTRADA É UM NÚMERO VÁLIDO
-  if (isNaN(prod) || prod < 1 || prod > nomes.length) {
-    console.log("\n🔶 Ops... O índice do produto informado não existe.")
-  } else {
-    prod-=1
-    const infoAntigo = igredientes[prod]
-    console.log(`   ${nomes[prod].padEnd(28)} ${igredientes[prod].padEnd(40)}`)
-    do{
-    novoNome = prompt("🔹 Infome os Novos Igredientes: ")
-    } while(isNaN(novoNome)== false)
-    igredientes[prod] = novoNome
-  
-    console.log(`\n✅ Os igredientes "${infoAntigo}" do Produto ${nomes[prod]} \nforam ALTERADOS para "${(novoNome)}".`)
-    
-    gravaAtivos();
-  }
-}
-
-function alterarPreco() {
-
-  // TÍTULO da Secção
-  console.log('\n'+"-".repeat(83) + "\n💱 Alterar Preço de Produto\n" + "-".repeat(83) + "\n")
-
-  // Exibe a TABELA de Produtos e Preços
-  console.log(`\nID..: Produto............: Preço....:\n`)
-  for (let i in nomes) {
-    let aux = Number(i)+1
-    console.log(`${String(aux).padEnd(5)} ${nomes[i].padEnd(20)} R$${String(Number(precos[i]).toFixed(2)).padStart(8)}`);
-  }
-
-  // ENTRADA do índice do produto à alterar
-  let prod = Number(prompt("\n🔹 Informe o 'ID' do Produto: "))
-  
-  // Verifica se a ENTRADA É UM NÚMERO VÁLIDO
-  if (isNaN(prod) || prod < 1 || prod > nomes.length) {
-    console.log("\n🔶 Ops... O índice do produto informado não existe.")
-  } else {
-    prod-=1
-    console.log(`   ${nomes[prod].padEnd(26)} R$ ${Number(precos[prod]).toFixed(2)}`)
-    do{
-    novoPreco = Number(prompt("🔹 Infome o Novo Preço:       R$ "))
-    } while(isNaN(novoPreco))
-    precos[prod] = novoPreco
-  
-    console.log(`\n✅ O preço do produto ${nomes[prod]} foi ALTERADO para R$ ${(novoPreco.toFixed(2))}.`)
-    
-    gravaAtivos();
-  }
-}
-*/
 function exclusao() {
   // TÍTULO da Secção
   console.log("-".repeat(104) + "\n❌ Excluir Produto\n" + "-".repeat(104) + "\n")
@@ -1017,14 +917,14 @@ do {
   console.log("\n1. 📝 Inclusão de Ativo\n\n");
   console.log("2. 📋 Estoque de Ativos");
   console.log("3. 🔍 Pesquisa por Marca");
-  console.log("4. 🔍 Pesquisa por Ano");
-  console.log("5. 🔎 Pesquisa por Intervalo de Quilometragem");
+  console.log("4. 🔎 Pesquisa por Ano");
+  console.log("5. 🔍 Pesquisa por Intervalo de Quilometragem");
   console.log("6. 🔎 Pesquisa por Intervalo de Preço\n");
   console.log("7. 🔡 Alterar Modelo do Ativo");
-  console.log("8. 🛒 Alterar Marca de Ativo");
-  console.log("9. 🥗 Alterar Ano de Ativo");
-  console.log("10.💱 Alterar Quilometragem de Ativo");
-  console.log("11.💱 Alterar Especificações de Ativo");
+  console.log("8. 🔖 Alterar Marca de Ativo");
+  console.log("9. 🗓️  Alterar Ano de Ativo");
+  console.log("10.🛣️  Alterar Quilometragem de Ativo");
+  console.log("11.✴️  Alterar Especificações de Ativo");
   console.log("12.💱 Alterar Preço do Ativo\n");
   console.log("13. 📖 Gerar Estoque Web");
   console.log("14. 🌐 Gerar Estoque Web por Marca");
