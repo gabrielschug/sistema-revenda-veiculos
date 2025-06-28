@@ -10,6 +10,15 @@ const fipes = [];
 const precos = [];
 const fotos = [];
 
+function chamaCabecalho() {
+  console.log('Modelo..........: Marca......: Ano.: KM....: Espeficicações.......................: FIPE.....: REVENDA..:\n')
+}
+
+function chamaLinha(i) {
+  console.log(
+  `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(5)} ${String(quilometragens[i].toLocaleString("pt-br")).padStart(7)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
+}
+
 function inclusao() {
 
   // TÍTULO da Secção
@@ -146,6 +155,90 @@ function pesquisaAno() {
     }
   }
 }
+
+function pesquisaKm() {
+  
+  if (fs.existsSync("ativos.txt")) {
+    // SE ativos.txt existir ENTÃO...
+    // Lê as linhas do .txt e fatia e separando as linhas (\n)
+    const ativos = fs.readFileSync("ativos.txt", "utf-8").split("\n");
+
+    // Título da Secção
+    console.log(
+      '\n'+"-".repeat(104) + "\n🔍 Pesquisa por Quilometragem\n" + "-".repeat(104) + "\n"
+    );
+
+    // Entrada de anos mínimos e máximos:
+    const min = Number(prompt("🔻 KM Mínima............: "));
+    const max = Number(prompt("🔺 KM Máxima............: "));
+
+    // Contador de Itens
+    let contador = 0;
+    for (i in modelos) {
+      if ((quilometragens[i] >= min) & (quilometragens[i] <= max)) {
+        // SE existir anos nesta faixa de valores ENTÃO...
+        contador++; // Conte...
+      }
+
+      // Tabela dos Itens
+    }
+    if (contador == 0) {
+      // SE a Contagem deu 0 ENTÃO INFORME ...
+      console.log("\n\n🔶 Não há ativos nesta faixa de quilometragem.");
+    } else {
+      console.log(`\n\n🚗 Ativos entre ${min.toLocaleString("pt-br")} km e ${max.toLocaleString("pt-br")} km:\n`) + chamaCabecalho()
+
+      for (i in modelos) {
+        if ((quilometragens[i] >= min) & (quilometragens[i] <= max)) {
+          chamaLinha(i)}
+      }
+      console.log()
+    }
+  }
+
+}
+
+function pesquisaPreco() {
+  
+  if (fs.existsSync("ativos.txt")) {
+    // SE ativos.txt existir ENTÃO...
+    // Lê as linhas do .txt e fatia e separando as linhas (\n)
+    const ativos = fs.readFileSync("ativos.txt", "utf-8").split("\n");
+
+    // Título da Secção
+    console.log(
+      '\n'+"-".repeat(104) + "\n🔍 Pesquisa por Preço\n" + "-".repeat(104) + "\n"
+    );
+
+    // Entrada de anos mínimos e máximos:
+    const min = Number(prompt("🔻 Valor Mínimo............: "));
+    const max = Number(prompt("🔺 valor Máximo............: "));
+
+    // Contador de Itens
+    let contador = 0;
+    for (i in modelos) {
+      if ((precos[i] >= min) & (precos[i] <= max)) {
+        // SE existir anos nesta faixa de valores ENTÃO...
+        contador++; // Conte...
+      }
+
+      // Tabela dos Itens
+    }
+    if (contador == 0) {
+      // SE a Contagem deu 0 ENTÃO INFORME ...
+      console.log("\n\n🔶 Não há ativos nesta faixa de preços.");
+    } else {
+      console.log(`\n\n💵 Ativos entre R$ ${min.toLocaleString("pt-br", { maximumSignificantDigits: 2})} e R$ ${max.toLocaleString("pt-br", { maximumSignificantDigits: 2})}:\n`) + chamaCabecalho()
+
+      for (i in modelos) {
+        if ((precos[i] >= min) & (precos[i] <= max)) {chamaLinha(i)}
+      }
+      console.log()
+    }
+  }
+
+}
+
 /*
 function cardapioWeb() {
   let conteudo = `
@@ -563,11 +656,11 @@ do {
       break;
     }
     case 5: {
-      cardapioWeb();
+      pesquisaKm();
       break;
     }
     case 6: {
-      CardapioporCategoria();
+      pesquisaPreco();
       break;
     }
     case 7: {
