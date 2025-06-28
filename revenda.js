@@ -52,20 +52,20 @@ function inclusao() {
 
 function listagem() {
     // TÍTULO da Secção
-  console.log('\n'+"-".repeat(106) + "\n📋 Listagem dos Ativos Cadastrados\n" + "-".repeat(106) + "\n")
+  console.log('\n'+"-".repeat(104) + "\n📋 Listagem dos Ativos Cadastrados\n" + "-".repeat(104) + "\n")
 
   console.log(
-    `\nModelo..........: Marca......: Ano..: KM....: Espeficicações.......................: FIPE.....: REVENDA..:\n`
+    `\nModelo..........: Marca......: Ano.: KM...: Espeficicações.......................: FIPE.....: REVENDA..:\n`
   );
 
   for (let i in modelos) {
     console.log(
-      `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(6)} ${String(quilometragens[i]).padStart(7)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
+      `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(5)} ${String(quilometragens[i]).padStart(6)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
   }
   console.log()
 }
 
-function pesquisaCategoria() {
+function pesquisaMarca() {
   if (fs.existsSync("ativos.txt")) {
     // SE ativos.txt existir ENTÃO...
     // Lê as linhas do .txt e fatia e separando as linhas (\n)
@@ -89,39 +89,39 @@ function pesquisaCategoria() {
     if (contador == 0) {// SE a Contagem deu 0 ENTÃO INFORME ...
         console.log("\n\n🔶 Não há ativos desta Marca.");
     } else {
-        console.log(`\n`+"-".repeat(106) +
-        `\nModelo..........: Marca......: Ano..: KM....: Espeficicações.......................: FIPE.....: REVENDA..:\n`);
+        console.log(`\n`+"-".repeat(104) +
+        `\nModelo..........: Marca......: Ano.: KM...: Espeficicações.......................: FIPE.....: REVENDA..:\n`);
 
         for (i in modelos) {
             if (pesquisa == marcas[i]) {
             console.log(
-      `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(6)} ${String(quilometragens[i]).padStart(7)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
+      `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(5)} ${String(quilometragens[i]).padStart(6)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
         }
         }console.log("\n");
     }
 }
 }
-/*
-function pesquisaPreco() {
-  if (fs.existsSync("produtos.txt")) {
-    // SE produtos.txt existir ENTÃO...
+
+function pesquisaAno() {
+  if (fs.existsSync("ativos.txt")) {
+    // SE ativos.txt existir ENTÃO...
     // Lê as linhas do .txt e fatia e separando as linhas (\n)
-    const produtos = fs.readFileSync("produtos.txt", "utf-8").split("\n");
+    const ativos = fs.readFileSync("ativos.txt", "utf-8").split("\n");
 
     // Título da Secção
     console.log(
-      '\n'+"-".repeat(83) + "\n🔍 Pesquisa por Preço\n" + "-".repeat(83) + "\n"
+      '\n'+"-".repeat(104) + "\n🔍 Pesquisa por Ano\n" + "-".repeat(104) + "\n"
     );
 
-    // Entrada de preços mínimos e máximos:
-    const min = Number(prompt("🔻 Preço Mínimo............: ")).toFixed(2);
-    const max = Number(prompt("🔺 Preço Máximo............: ")).toFixed(2);
+    // Entrada de anos mínimos e máximos:
+    const min = Number(prompt("🔻 Ano Mínimo............: "));
+    const max = Number(prompt("🔺 Ano Máximo............: "));
 
     // Contador de Itens
     let contador = 0;
-    for (i in nomes) {
-      if ((precos[i] >= min) & (precos[i] <= max)) {
-        // SE existir preços nesta faixa de valores ENTÃO...
+    for (i in modelos) {
+      if ((anos[i] >= min) & (anos[i] <= max)) {
+        // SE existir anos nesta faixa de valores ENTÃO...
         contador++; // Conte...
       }
 
@@ -129,27 +129,24 @@ function pesquisaPreco() {
     }
     if (contador == 0) {
       // SE a Contagem deu 0 ENTÃO INFORME ...
-      console.log("\n\n🔶 Não há itens nesta faixa de preços.");
+      console.log("\n\n🔶 Não há ativos nesta faixa de anos.");
     } else {
       console.log(
-        `\n\n💵 Produtos entre R$ ${min} e R$ ${max}:\n` +
-          `\nProduto............: Categoria: Igredientes............................: Preço....:\n`
-      );
+        `\n\n💵 Ativos entre ${min} e ${max}:\n` +
+          `\nModelo..........: Marca......: Ano.: KM...: Espeficicações.......................: FIPE.....: REVENDA..:\n`
+  );
 
-      for (i in nomes) {
-        if ((precos[i] >= min) & (precos[i] <= max)) {
+      for (i in modelos) {
+        if ((anos[i] >= min) & (anos[i] <= max)) {
           console.log(
-            `${nomes[i].padEnd(20)} ${categorias[i].padEnd(10)} ${igredientes[
-              i
-            ].padEnd(40)} R$ ${precos[i].toFixed(2).padStart(7)}`
-          );
+      `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(5)} ${String(quilometragens[i]).padStart(6)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
         }
       }
       console.log()
     }
   }
 }
-
+/*
 function cardapioWeb() {
   let conteudo = `
         <!DOCTYPE html>
@@ -523,29 +520,29 @@ obtemProdutos();
 menuPrincipal: 
 do {
   console.log(
-    "\n"+"-".repeat(106) +
+    "\n"+"-".repeat(104) +
       "\n🚗 SCHUG REVENDA DE VEÍCULOS - CONTROLE DE ESTOQUE\n" +
-      "-".repeat(106)
+      "-".repeat(104)
   );
   console.log("\n1. 📝 Inclusão de Ativo\n\n");
   console.log("2. 📋 Estoque de Ativos");
   console.log("3. 🔍 Pesquisa por Marca");
-  console.log("3. 🔍 Pesquisa por Ano");
-  console.log("4. 🔎 Pesquisa por Intervalo de Quilometragem");
-  console.log("5. 🔎 Pesquisa por Intervalo de Preço\n");
-  console.log("6. 🔡 Alterar Modelo do Ativo");
-  console.log("7. 🛒 Alterar Marca de Ativo");
-  console.log("8. 🥗 Alterar Ano de Ativo");
-  console.log("9.💱 Alterar Quilometragem de Ativo");
-  console.log("10.💱 Alterar Especificações de Ativo");
-  console.log("11.💱 Alterar Preço do Ativo\n");
-  console.log("12. 📖 Gerar Estoque Web");
-  console.log("13. 🌐 Gerar Estoque Web por Marca");
-  console.log("14. 🌐 Gerar Estoque Web por Ano");
-  console.log("15. 🌐 Gerar Estoque Web por Intervalo de Quilometragem");
-  console.log("16. 🌐 Gerar Estoque Web por Intervalo de Valor\n\n");
-  console.log("17.❌ Excluir Ativo\n");
-  console.log("18.↩️ Finalizar");
+  console.log("4. 🔍 Pesquisa por Ano");
+  console.log("5. 🔎 Pesquisa por Intervalo de Quilometragem");
+  console.log("6. 🔎 Pesquisa por Intervalo de Preço\n");
+  console.log("7. 🔡 Alterar Modelo do Ativo");
+  console.log("8. 🛒 Alterar Marca de Ativo");
+  console.log("9. 🥗 Alterar Ano de Ativo");
+  console.log("10.💱 Alterar Quilometragem de Ativo");
+  console.log("11.💱 Alterar Especificações de Ativo");
+  console.log("12.💱 Alterar Preço do Ativo\n");
+  console.log("13. 📖 Gerar Estoque Web");
+  console.log("14. 🌐 Gerar Estoque Web por Marca");
+  console.log("15. 🌐 Gerar Estoque Web por Ano");
+  console.log("16. 🌐 Gerar Estoque Web por Intervalo de Quilometragem");
+  console.log("17. 🌐 Gerar Estoque Web por Intervalo de Valor\n\n");
+  console.log("18.❌ Excluir Ativo\n");
+  console.log("19.↩️ Finalizar");
   const opcao = Number(prompt("\n🔸 Opção: "));
 
   switch (opcao) {
@@ -558,11 +555,11 @@ do {
       break;
     }
     case 3: {
-      pesquisaCategoria();
+      pesquisaMarca();
       break;
     }
     case 4: {
-      pesquisaPreco();
+      pesquisaAno();
       break;
     }
     case 5: {
