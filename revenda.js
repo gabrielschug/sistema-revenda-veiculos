@@ -17,12 +17,12 @@ const fotos = [];
 // SMART FUNCTIONS ----------------------------------------------------------------------------------
 
 function chamaCabecalho() {
-  console.log('Modelo..........: Marca......: Ano.: KM....: Espeficicações.......................: FIPE.....: REVENDA..:\n')
+  console.log('Modelo..........: Marca......: Ano.: KM....: Espeficicações.......................: FIPE.......: REVENDA....:\n')
 }
 
 function chamaLinha(i) {
   console.log(
-  `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(5)} ${String(quilometragens[i].toLocaleString("pt-br")).padStart(7)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
+  `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(5)} ${String(quilometragens[i].toLocaleString("pt-br")).padStart(7)} ${especificacoes[i].padEnd(38)} ${String(fipes[i].toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })).padStart(12)} ${String(precos[i].toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })).padStart(12)}`);
 }
 
 const htmlInicio = `<!DOCTYPE html>
@@ -79,17 +79,17 @@ function inclusao() {
 
   // ENTRADAS de Dados
   console.log(`\n🔹 Informe Modelo, Marca, Ano, Quilometragem, Espeficicações, Valor da Tabela FIPE, % de Revenda e Foto do Veículo.\n\n⚠️ OBS.: Cancele a inclusão computando '0' em qualquer entrada.\n`)
-  const a = prompt("Modelo......: ");
-  const b = prompt("Marca............: ").toUpperCase();
-  const c = prompt("Ano..........: ");
-  const d = Number(prompt("Quilometragem.............: "));
-  const e = prompt("Especificações.........: ");
-  const f = Number(prompt("Valor da Tabela FIPE.........: "));
-  let perc = Number(prompt(`% de Revenda .....: `));
+  const a = prompt("Modelo..............: ");
+  const b = prompt("Marca...............: ").toUpperCase();
+  const c = prompt("Ano.................: ");
+  const d = Number(prompt("Quilometragem.......: "));
+  const e = prompt("Especificações......: ");
+  const f = Number(prompt("Valor da Tabela FIPE: "));
+  let perc = Number(prompt(`% de Revenda.......: `));
   let recomendacao = (f * (perc/100))+f
-  let info = console.log(`Valor Recomendado de Revenda: R$ ${recomendacao.toFixed(2)}`)
-  const g = Number(prompt('Valor de Revenda.........: '));
-  const h = prompt("URL  da foto.........: ");
+  let info = console.log(`Valor Recomendado de Revenda: ${recomendacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`)
+  const g = Number(prompt('Valor de Revend.....: '));
+  const h = prompt("URL  da foto........: ");
 
   // Se entrou algum valor zero: CANCELA
   if ([a,b,c,d,e,f,g,h].includes('0')){
@@ -109,12 +109,13 @@ function inclusao() {
     // INFO de Conclusão + SALVAR
     console.log(`\n✅ Veículo Cadastrado com Sucesso!\n` + `-`.repeat(83));
     gravaAtivos();
+    ativosWeb();
   }
 }
 
 function listagem() {
     // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + "\n📋 Listagem dos Ativos Cadastrados\n" + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(109) + "\n📋 Listagem dos Ativos Cadastrados\n" + "-".repeat(109) + "\n")
 
   chamaCabecalho()
 
@@ -148,13 +149,11 @@ function pesquisaMarca() {
     if (contador == 0) {// SE a Contagem deu 0 ENTÃO INFORME ...
         console.log("\n\n🔶 Não há ativos desta Marca.");
     } else {
-        console.log(`\n`+"-".repeat(104) +
-        `\nModelo..........: Marca......: Ano.: KM...: Espeficicações.......................: FIPE.....: REVENDA..:\n`);
+        console.log(`\n`+"-".repeat(109)) + chamaCabecalho();
 
         for (i in modelos) {
             if (pesquisa == marcas[i]) {
-            console.log(
-      `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(5)} ${String(quilometragens[i]).padStart(6)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
+            chamaLinha(i);
         }
         }console.log("\n");
     }
@@ -169,7 +168,7 @@ function pesquisaAno() {
 
     // Título da Secção
     console.log(
-      '\n'+"-".repeat(104) + "\n🔎 Pesquisa por Ano\n" + "-".repeat(104) + "\n"
+      '\n'+"-".repeat(109) + "\n🔎 Pesquisa por Ano\n" + "-".repeat(109) + "\n"
     );
 
     // Entrada de anos mínimos e máximos:
@@ -191,14 +190,11 @@ function pesquisaAno() {
       console.log("\n\n🔶 Não há ativos nesta faixa de anos.");
     } else {
       console.log(
-        `\n\n💵 Ativos entre ${min} e ${max}:\n` +
-          `\nModelo..........: Marca......: Ano.: KM...: Espeficicações.......................: FIPE.....: REVENDA..:\n`
-  );
+        `\n\n💵 Ativos entre ${min} e ${max}:\n`) + chamaCabecalho()
 
       for (i in modelos) {
         if ((anos[i] >= min) & (anos[i] <= max)) {
-          console.log(
-      `${modelos[i].padEnd(17)} ${marcas[i].padEnd(12)} ${String(anos[i]).padStart(5)} ${String(quilometragens[i]).padStart(6)} ${especificacoes[i].padEnd(39)}R$ ${String(fipes[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)} R$ ${String(precos[i].toLocaleString("pt-br", { maximumSignificantDigits: 2})).padStart(7)}`);
+          chamaLinha(i)
         }
       }
       console.log()
@@ -215,7 +211,7 @@ function pesquisaKm() {
 
     // Título da Secção
     console.log(
-      '\n'+"-".repeat(104) + "\n🔍 Pesquisa por Quilometragem\n" + "-".repeat(104) + "\n"
+      '\n'+"-".repeat(109) + "\n🔍 Pesquisa por Quilometragem\n" + "-".repeat(109) + "\n"
     );
 
     // Entrada de anos mínimos e máximos:
@@ -236,7 +232,7 @@ function pesquisaKm() {
       // SE a Contagem deu 0 ENTÃO INFORME ...
       console.log("\n\n🔶 Não há ativos nesta faixa de quilometragem.");
     } else {
-      console.log(`\n\n🚗 Ativos entre ${min.toLocaleString("pt-br")} km e ${max.toLocaleString("pt-br")} km:\n`) + chamaCabecalho()
+      console.log(`\n\n🚗 Ativos entre ${min.toLocaleString('pt-BR')} km e ${max.toLocaleString('pt-BR')} km:\n`) + chamaCabecalho()
 
       for (i in modelos) {
         if ((quilometragens[i] >= min) & (quilometragens[i] <= max)) {
@@ -257,7 +253,7 @@ function pesquisaPreco() {
 
     // Título da Secção
     console.log(
-      '\n'+"-".repeat(104) + "\n🔎 Pesquisa por Preço\n" + "-".repeat(104) + "\n"
+      '\n'+"-".repeat(109) + "\n🔎 Pesquisa por Preço\n" + "-".repeat(109) + "\n"
     );
 
     // Entrada de anos mínimos e máximos:
@@ -278,7 +274,7 @@ function pesquisaPreco() {
       // SE a Contagem deu 0 ENTÃO INFORME ...
       console.log("\n\n🔶 Não há ativos nesta faixa de preços.");
     } else {
-      console.log(`\n\n💵 Ativos entre R$ ${min.toLocaleString("pt-br", { maximumSignificantDigits: 2})} e R$ ${max.toLocaleString("pt-br", { maximumSignificantDigits: 2})}:\n`) + chamaCabecalho()
+      console.log(`\n\n💵 Ativos entre ${min.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} e ${max.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}:\n`) + chamaCabecalho()
 
       for (i in modelos) {
         if ((precos[i] >= min) & (precos[i] <= max)) {chamaLinha(i)}
@@ -322,7 +318,7 @@ function ativosMarcaWeb() {
   let nome = 'Marca'
 
   // Título da Secção
-  console.log("-".repeat(104) + `\n🌐 Gerar Estoque Web por ${nome}\n` + "-".repeat(104) + "\n");
+  console.log("-".repeat(109) + `\n🌐 Gerar Estoque Web por ${nome}\n` + "-".repeat(109) + "\n");
 
   // Entrada da Categoria
   const pesquisa = prompt("🔹 Marca............: ").toUpperCase();
@@ -339,7 +335,7 @@ function ativosMarcaWeb() {
   let conteudoMeio
 
   // Tabela dos Itens
-    if (anos[i] >= min & anos[i] <= max) {// SE a Contagem deu 0 ENTÃO ...
+    if (pesquisa == principal[i]) {// SE a Contagem deu 0 ENTÃO ...
         console.log(`\n🔶 Não há Ativos deste ${nome}...\n`)
         conteudoMeio = `
         <h3>🔶 Não há Ativos neste invervalo de ${nome}...</h3>
@@ -392,7 +388,7 @@ function ativosAnoWeb() {
   let nome = 'Ano'
 
   // Título da Secção
-  console.log("-".repeat(104) + `\n🌐 Gerar Estoque Web por ${nome}\n` + "-".repeat(104) + "\n");
+  console.log("-".repeat(109) + `\n🌐 Gerar Estoque Web por ${nome}\n` + "-".repeat(109) + "\n");
 
   // Entrada de intervalo mínimos e máximos:
   const min = Number(prompt(`🔻 ${nome} Mínimo............: `));
@@ -463,7 +459,7 @@ function ativosKmWeb() {
   let nome = 'Quilometragem'
 
   // Título da Secção
-  console.log("-".repeat(104) + `\n🌐 Gerar Estoque Web por ${nome}\n` + "-".repeat(104) + "\n");
+  console.log("-".repeat(9) + `\n🌐 Gerar Estoque Web por ${nome}\n` + "-".repeat(109) + "\n");
 
   // Entrada de intervalo mínimos e máximos:
   const min = Number(prompt(`🔻 ${nome} Mínima............: `));
@@ -534,7 +530,7 @@ function ativosPrecoWeb() {
   let nome = 'Valor'
 
   // Título da Secção
-  console.log("-".repeat(104) + `\n🌐 Gerar Estoque Web por Intervalo  de ${nome}\n` + "-".repeat(104) + "\n");
+  console.log("-".repeat(109) + `\n🌐 Gerar Estoque Web por Intervalo  de ${nome}\n` + "-".repeat(109) + "\n");
 
   // Entrada de intervalo mínimos e máximos:
   const min = Number(prompt(`🔻 ${nome} Mínimo............: `));
@@ -605,7 +601,7 @@ function alterarModelo() {
   let nome = 'Modelo'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + "\n🔡 Alterar Modelo do Ativo\n" + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(109) + "\n🔡 Alterar Modelo do Ativo\n" + "-".repeat(109) + "\n")
 
   // Exibe a TABELA de Ativos e Preços
   console.log(`\nID..: Modelo..........: \n`)
@@ -634,6 +630,7 @@ function alterarModelo() {
     console.log(`\n✅ Ativo ${nomeAntigo} foi ALTERADO para ${(alteracao)}.`)
     
     gravaAtivos();
+    ativosWeb();
   }
 }
 
@@ -642,7 +639,7 @@ function alterarMarca() {
   let nome = 'Marca'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + `\n🔖 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(109) + `\n🔖 Alterar ${nome} do Ativo\n` + "-".repeat(109) + "\n")
 
   // Exibe a TABELA de Ativos e Preços
   console.log(`\nID..: Modelo..........: \n`)
@@ -668,9 +665,10 @@ function alterarMarca() {
     //Item para alteração
     marcas[prod] = alteracao
   
-    console.log(`\n✅ ${nome} do Ativo ${modelos[i]} foi ALTERADA para ${(alteracao)}.`)
+    console.log(`\n✅ ${nome} do Ativo ${modelos[i]} foi ALTERADA de ${nomeAntigo} para ${(alteracao)}.`)
     
     gravaAtivos();
+    ativosWeb();
   }
 }
 
@@ -679,7 +677,7 @@ function alterarAno() {
   let nome = 'Ano'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + `\n🗓️ Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(109) + `\n🗓️ Alterar ${nome} do Ativo\n` + "-".repeat(109) + "\n")
 
   // Exibe a TABELA de Ativos e Preços
   console.log(`\nID..: Modelo..........: \n`)
@@ -708,6 +706,7 @@ function alterarAno() {
     console.log(`\n✅ ${nome} do Ativo ${modelos[i]} foi ALTERADO de ${nomeAntigo} para ${(alteracao)}.`)
     
     gravaAtivos();
+    ativosWeb();
   }
 }
 
@@ -716,7 +715,7 @@ function alterarKM() {
   let nome = 'Quilometragem'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + `\n🛣️ Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(109) + `\n🛣️ Alterar ${nome} do Ativo\n` + "-".repeat(109) + "\n")
 
   // Exibe a TABELA de Ativos e Preços
   console.log(`\nID..: Modelo..........: \n`)
@@ -742,9 +741,10 @@ function alterarKM() {
     //Item para alteração
     quilometragens[prod] = alteracao
   
-    console.log(`\n✅ ${nome} do Ativo ${modelos[i]} foi ALTERADA de ${nomeAntigo.toLocaleString("pt-br")} km para ${(alteracao.toLocaleString("pt-br"))} km.`)
+    console.log(`\n✅ ${nome} do Ativo ${modelos[prod]} foi ALTERADA de ${nomeAntigo.toLocaleString("pt-br")} km para ${(alteracao.toLocaleString("pt-br"))} km.`)
     
     gravaAtivos();
+    ativosWeb();
   }
 }
 
@@ -753,7 +753,7 @@ function alterarObs() {
   let nome = 'Especificações'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + `\n✴️ Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(109) + `\n✴️ Alterar ${nome} do Ativo\n` + "-".repeat(109) + "\n")
 
   // Exibe a TABELA de Ativos e Preços
   console.log(`\nID..: Modelo..........: \n`)
@@ -782,6 +782,7 @@ function alterarObs() {
     console.log(`\n✅ ${nome} do Ativo ${modelos[i]} foram ALTERADAS de '${nomeAntigo}' para '${(alteracao)}'.`)
     
     gravaAtivos();
+    ativosWeb();
   }
 }
 
@@ -790,7 +791,7 @@ function alterarPreco() {
   let nome = 'Valor'
 
   // TÍTULO da Secção
-  console.log('\n'+"-".repeat(104) + `\n💱 Alterar ${nome} do Ativo\n` + "-".repeat(104) + "\n")
+  console.log('\n'+"-".repeat(109) + `\n💱 Alterar ${nome} do Ativo\n` + "-".repeat(109) + "\n")
 
   // Exibe a TABELA de Ativos e Preços
   console.log(`\nID..: Modelo..........: \n`)
@@ -807,8 +808,8 @@ function alterarPreco() {
     console.log(`\n🔶 O índice do Ativo informado não existe.`)
   } else {
     prod-=1
-    const nomeAntigo = modelos[prod]
-    console.log(`   R$ ${principal[prod].toLocaleString("pt-br")}`)
+    const nomeAntigo = principal[prod]
+    console.log(`   ${principal[prod].toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`)
     do{
     alteracao = Number(prompt(`🔹 Infome o Novo ${nome}: `))
     } while(isNaN(alteracao))
@@ -816,15 +817,16 @@ function alterarPreco() {
     //Item para alteração
     precos[prod] = alteracao
   
-    console.log(`\n✅ ${nome} do Ativo ${nomeAntigo} foi ALTERADO para R$ ${(alteracao).toLocaleString("pt-br")}.`)
+    console.log(`\n✅ ${nome} do Ativo ${modelos[prod]} foi ALTERADO de ${nomeAntigo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} para ${(alteracao).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}.`)
     
     gravaAtivos();
+    ativosWeb();
   }
 }
 
 function exclusao() {
   // TÍTULO da Secção
-  console.log("-".repeat(104) + "\n❌ Excluir Produto\n" + "-".repeat(104) + "\n")
+  console.log("-".repeat(109) + "\n❌ Excluir Produto\n" + "-".repeat(109) + "\n")
 
   // Exibe a TABELA de Produtos e Preços
   console.log(`\nModelo..........: \n`
@@ -855,6 +857,7 @@ function exclusao() {
     // Info de Exclusão e Salva Produtos
     console.log(`\n❌ O Ativo ${antigoProduto} foi EXCLUÍDO.`)
     gravaAtivos();
+    ativosWeb();
   }
 }
 
@@ -872,6 +875,7 @@ function gravaAtivos() {
       precos[i] + ";" +
       fotos[i]
     );
+
   }
 
   //Salvar dados do Vetor
@@ -910,9 +914,9 @@ obtemProdutos();
 menuPrincipal: 
 do {
   console.log(
-    "\n"+"-".repeat(104) +
+    "\n"+"-".repeat(109) +
       "\n🚗 SCHUG REVENDA DE VEÍCULOS - CONTROLE DE ESTOQUE\n" +
-      "-".repeat(104)
+      "-".repeat(109)
   );
   console.log("\n1. 📝 Inclusão de Ativo\n\n");
   console.log("2. 📋 Estoque de Ativos");

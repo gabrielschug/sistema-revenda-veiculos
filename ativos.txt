@@ -1,1 +1,6 @@
 Ecosport;FORD;2008;80000;Completo + Ar + Couro + Midia;32000;30000;https://static.stg.kbb.com.br/pkw/p/ford/ecosport/2008/5od.jpg
+Sandero;PEGEOUT;2012;202000;Prata + Automatico + Midia;33463;31990;https://image1.mobiauto.com.br/images/api/images/v1.0/78576408/transform/fl_progressive,f_webp,q_85,w_959
+HB20s;HYUNDAI;2024;58012;Branco + Midia + Controle Velocidade;77283;95690;https://production.autoforce.com/uploads/version/profile_image/12660/comprar-comfort_0cbf1cd0fe.png
+Onix;CHEVROLET;2024;55983;Prata + Sensor + Contr.Tracao;92535;81990;https://production.autoforce.com/uploads/version/profile_image/9212/comprar-lt-1-0-turbo-pacote-rgk_0c0061f182.png
+Fiesta;FORD;2014;134500;Prata + Alarme + Vidros Eletricos;36240;39900;https://origin4n6.com/wp-content/uploads/2018/06/2014-ford-fiesta.jpg
+Gol;VOLKSWAGEN;2022;46890;Preto + Ar Cond + Dir Hidraulica;57500;61900;https://image1.mobiauto.com.br/images/api/images/v1.0/49263057/transform/fl_progressive,f_webp,q_85,w_959
