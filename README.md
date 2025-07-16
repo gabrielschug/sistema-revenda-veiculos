@@ -1,4 +1,4 @@
-# 🍔 Programa Revenda de Veículos (CRUD em JavaScript + Geração de Tabela Web)
+# 🚗 Programa Revenda de Veículos (CRUD em JavaScript + Geração de Tabela Web)
 
 Este repositório contém o código-fonte de um programa desenvolvido com **JavaScript (Node.js)**, com geração dinâmica de **páginas HTML e CSS** para web, como parte do meu processo de aprendizagem em **Desenvolvimento Back-End e Front-End básico**.
 
