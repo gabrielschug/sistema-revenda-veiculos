@@ -309,7 +309,7 @@ function ativosWeb() {
 
   fs.writeFileSync("ativosWeb.html", conteudo);
 
-  console.log(`\n✅ Estoque de Ativos gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/revenda-veiculos/ativosWeb.html`
+  console.log(`\n✅ Estoque de Ativos gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/.backEnd/revenda-veiculos/ativosWeb.html`
   );
 }
 
@@ -379,7 +379,7 @@ function ativosMarcaWeb() {
 
   // Finalizando o Processo
   console.log(
-    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/revenda-veiculos/ativosPesquisaWeb.html`
+    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/.backEnd/revenda-veiculos/ativosPesquisaWeb.html`
   );
 }
 
@@ -450,7 +450,7 @@ function ativosAnoWeb() {
 
   // Finalizando o Processo
   console.log(
-    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/revenda-veiculos/ativosPesquisaWeb.html`
+    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/.backEnd/revenda-veiculos/ativosPesquisaWeb.html`
   );
 }
 
@@ -521,7 +521,7 @@ function ativosKmWeb() {
 
   // Finalizando o Processo
   console.log(
-    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/revenda-veiculos/ativosPesquisaWeb.html`
+    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/.backEnd/revenda-veiculos/ativosPesquisaWeb.html`
   );
 }
 
@@ -592,7 +592,7 @@ function ativosPrecoWeb() {
 
   // Finalizando o Processo
   console.log(
-    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/revenda-veiculos/ativosPesquisaWeb.html`
+    `\n✅ Estoque gerado com sucesso\nAcesse aqui: file:///C:/Users/gabri/Documents/GitHub/.backEnd/revenda-veiculos/ativosPesquisaWeb.html`
   );
 }
 
